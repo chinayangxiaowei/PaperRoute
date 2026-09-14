@@ -1,0 +1,85 @@
+html, body {
+  margin: 0; padding: 0; overflow: hidden; height: 100%;
+  background: #141a2b; font-family: Georgia, 'Times New Roman', serif;
+}
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+.hidden { display: none !important; }
+
+/* ---------- overlays ---------- */
+.overlay {
+  position: fixed; inset: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10, 14, 26, 0.72); backdrop-filter: blur(3px);
+}
+.load-box { text-align: center; color: #e8ddc0; }
+.load-title { font-size: 28px; letter-spacing: 6px; font-weight: bold; }
+.load-text { margin-top: 12px; font-style: italic; opacity: .8; }
+
+/* ---------- newspaper ---------- */
+.newspaper {
+  width: min(560px, 92vw); max-height: 92vh; overflow-y: auto;
+  background: #f4edd8; color: #1d1a14; padding: 22px 28px 18px;
+  border: 1px solid #c9bd9a; box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  text-align: center;
+}
+.np-meta, .np-footer {
+  display: flex; justify-content: space-between; font-size: 10px;
+  letter-spacing: 1.5px; border-bottom: 2px solid #1d1a14; padding-bottom: 4px;
+}
+.np-footer { border-bottom: none; border-top: 2px solid #1d1a14; padding-top: 4px; margin-top: 14px; }
+.np-masthead {
+  font-size: 44px; margin: 10px 0 0; font-weight: 900; letter-spacing: 1px;
+  font-family: 'Old English Text MT', 'UnifrakturMaguntia', Georgia, serif;
+}
+.np-tagline { font-size: 10px; letter-spacing: 3px; border-top: 1px solid #1d1a14; border-bottom: 1px solid #1d1a14; padding: 3px 0; margin: 6px 0 14px; }
+.np-headline { font-size: 34px; line-height: 1.05; margin: 6px 0 8px; font-family: 'Arial Narrow', Impact, sans-serif; font-weight: 900; }
+.np-sub { font-style: italic; margin: 0 0 14px; }
+.np-columns { display: flex; gap: 18px; text-align: left; border-top: 1px solid #999; padding-top: 12px; margin-bottom: 14px; }
+.np-col { flex: 1; font-size: 13px; }
+.np-col h3 { font-size: 12px; letter-spacing: 1px; border-bottom: 1px solid #999; padding-bottom: 4px; }
+.np-art { font-size: 46px; text-align: center; filter: sepia(.4); }
+.np-controls { font-size: 12px; background: #e7dec3; padding: 8px; border: 1px dashed #a99; }
+.np-stats { display: flex; gap: 14px; margin-top: 10px; }
+.np-stats div { text-align: center; }
+.np-stats b { display: block; font-size: 26px; font-family: 'Arial Narrow', Impact, sans-serif; }
+.np-stats span { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.np-stats.big { justify-content: center; gap: 40px; margin: 18px 0; }
+.np-stats.big b { font-size: 40px; }
+#start-btn, #retry-btn {
+  width: 100%; padding: 14px; font-size: 20px; font-weight: bold; cursor: pointer;
+  background: #23282f; color: #f4edd8; border: 3px double #f4edd8;
+  font-family: inherit; transition: transform .12s, background .12s;
+}
+#start-btn:hover, #retry-btn:hover { background: #3a4250; transform: translateY(-2px); }
+
+/* ---------- HUD ---------- */
+#hud { position: fixed; inset: 0; z-index: 10; pointer-events: none; color: #f4edd8; }
+#hud-topleft { position: absolute; top: 14px; left: 16px; text-shadow: 0 2px 6px rgba(0,0,0,.8); }
+.hud-day { font-size: 12px; letter-spacing: 3px; opacity: .85; }
+.hud-points { font-size: 34px; font-weight: 900; font-family: 'Arial Narrow', Impact, sans-serif; }
+.hud-points small { font-size: 11px; letter-spacing: 2px; margin-left: 6px; opacity: .8; }
+.hud-speed { font-size: 14px; opacity: .9; }
+.hud-lives { font-size: 18px; color: #ff5f6b; letter-spacing: 3px; margin-top: 2px; }
+#radar {
+  position: absolute; left: 16px; bottom: 16px;
+  background: rgba(20, 24, 36, .82); border: 2px solid #f4edd8; border-radius: 6px;
+}
+#hud-papers {
+  position: absolute; right: 18px; bottom: 18px; font-size: 22px; font-weight: bold;
+  background: rgba(20, 24, 36, .82); border: 2px solid #f4edd8; border-radius: 6px; padding: 6px 14px;
+}
+#hint {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; opacity: .55; letter-spacing: 1px;
+}
+#score-popups { position: absolute; inset: 0; overflow: hidden; }
+.popup {
+  position: absolute; font-size: 26px; font-weight: 900; color: #ffd76b;
+  font-family: 'Arial Narrow', Impact, sans-serif; text-shadow: 0 2px 8px rgba(0,0,0,.9);
+  animation: pop-rise 1s ease-out forwards;
+}
+.popup.bad { color: #ff5f6b; }
+@keyframes pop-rise {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-70px); }
+}

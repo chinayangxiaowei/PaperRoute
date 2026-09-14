@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PaperRoute · 本地复刻</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <!-- 加载屏 -->
+  <div id="loading" class="overlay">
+    <div class="load-box">
+      <div class="load-title">THE DAILY POST</div>
+      <div class="load-text" id="load-text">Getting the street ready…</div>
+    </div>
+  </div>
+
+  <!-- 报纸开场 -->
+  <div id="intro" class="overlay hidden">
+    <div class="newspaper">
+      <div class="np-meta"><span>VOL. 01 · CEDAR HOLLOW</span><span>MONDAY, 6:15 AM</span><span>PRICE 25¢</span></div>
+      <h1 class="np-masthead">The Daily Post</h1>
+      <div class="np-tagline">LOCAL NEWS FOR A BRIGHTER TOMORROW</div>
+      <h2 class="np-headline">THE NEIGHBOURHOOD<br/>IS WAKING UP.</h2>
+      <p class="np-sub">You've got papers to deliver.</p>
+      <div class="np-columns">
+        <div class="np-col">
+          <div class="np-art">🗞️</div>
+          <p>Deliver when a mailbox lights up.</p>
+          <p class="np-controls">← → 转向 · ↑ ↓ 加速/刹车<br/>空格 / 点击 投递报纸</p>
+        </div>
+        <div class="np-col">
+          <h3>YOUR FIRST ASSIGNMENT</h3>
+          <p>A sleepy American street. Waiting subscribers. Deliver on both sides.</p>
+          <div class="np-stats">
+            <div><b id="stat-houses">40</b><span>Houses</span></div>
+            <div><b id="stat-subs">10</b><span>Subscribers</span></div>
+            <div><b>3</b><span>Lives</span></div>
+          </div>
+        </div>
+      </div>
+      <button id="start-btn">Start your route →</button>
+      <div class="np-footer"><span>GOOD PEOPLE. GREAT NEIGHBOURHOODS.</span><span>PAGE 1 OF 1</span></div>
+    </div>
+  </div>
+
+  <!-- 结算报纸 -->
+  <div id="results" class="overlay hidden">
+    <div class="newspaper">
+      <div class="np-meta"><span>VOL. 01 · CEDAR HOLLOW</span><span id="res-date">MONDAY, 7:02 AM</span><span>PRICE 25¢</span></div>
+      <h1 class="np-masthead">The Daily Post</h1>
+      <h2 class="np-headline" id="res-headline">ROUTE COMPLETE!</h2>
+      <p class="np-sub" id="res-byline">Delivered by our very own carrier.</p>
+      <div class="np-stats big">
+        <div><b id="res-score">0</b><span>Points</span></div>
+        <div><b id="res-delivered">0/10</b><span>Delivered</span></div>
+        <div><b id="res-grade">C</b><span>Grade</span></div>
+      </div>
+      <button id="retry-btn">Ride again →</button>
+      <div class="np-footer"><span>SMALL DELIVERIES. A BRIGHTER TOMORROW.</span><span>THE END</span></div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="hud-topleft">
+      <div class="hud-day">MONDAY</div>
+      <div class="hud-points"><span id="hud-points">00000</span><small>POINTS</small></div>
+      <div class="hud-speed" id="hud-speed">0 km/h</div>
+      <div class="hud-lives" id="hud-lives">♥♥♥</div>
+    </div>
+    <canvas id="radar" width="150" height="180"></canvas>
+    <div id="hud-papers">🗞 <span id="papers-left">16</span></div>
+    <div id="score-popups"></div>
+    <div id="hint">空格 / 点击 = 投递 · ↑ 加速 · ↓ 刹车</div>
+  </div>
+
+  <script>
+    window.addEventListener('error', (e) => {
+      const el = document.getElementById('load-text');
+      if (el && !document.getElementById('loading').classList.contains('hidden')) {
+        el.textContent = 'Error: ' + e.message;
+      }
+      console.error('[page-error]', e.message);
+    });
+    window.addEventListener('unhandledrejection', (e) => {
+      const el = document.getElementById('load-text');
+      if (el && !document.getElementById('loading').classList.contains('hidden')) {
+        el.textContent = 'Error: ' + (e.reason?.message || e.reason);
+      }
+    });
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
